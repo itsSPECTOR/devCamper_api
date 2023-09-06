@@ -5,6 +5,7 @@ const colors = require('colors')
 const connectDB = require('./config/db')
 const errorHandler = require('./middleware/error')
 
+const courses = require('./routes/courses')   // route Files, we're importing the routes
 const bootCamps = require('./routes/bootCamps')   // route Files, we're importing the routes
 dotenv.config({ path: './config/config.env'})     // load env vars
 connectDB()                                       // connects to our mongoDB via db.js
@@ -17,8 +18,11 @@ if (process.env.NODE_ENV === 'development'){
   app.use(morgan('dev'))
 }
 
-// makes the routes accessable and shortens the need to wrie the full path
+// makes the bootCamps routes accessable and shortens the need to wrie the full path elsewhere
 app.use('/api/v1/bootCamps', bootCamps)
+
+// makes the courses routes accessable and shortens the need to wrie the full path elsewhere
+app.use('/api/v1/courses', courses)
 
 // my custom error handler
 app.use(errorHandler)
